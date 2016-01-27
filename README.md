@@ -78,6 +78,7 @@ dexcount {
     includeTotalMethodCount = false
     orderByMethodCount = false
     verbose = false
+    failPercentTotalMethodCount = -1
 }
 ```
 
@@ -88,6 +89,7 @@ Each flag controls some aspect of the printed output:
 - `includeTotalMethodCount`: When true, the total number of methods in the application will be included in the printed output.
 - `orderByMethodCount`: When true, packages will be sorted in descending order by the number of methods they contain.
 - `verbose`: When true, the output file will also be printed to the build's standard output.
+- `failPercentTotalMethodCount`: When not negative, it will check if the dex method count in the application has reached the maximum by more than this allowed percentage and fail the build (i.e. fail the builds when we reach more than 95% of the allowed method count - set this value to 0.95). This is particularly useful to run as part of your nightly CI job as a warning mechanism that you are getting dangerously close to the dex limit.
 
 ## Use with Jenkins Plot Plugin
 

@@ -69,4 +69,9 @@ class DexMethodCountExtensionTest extends Specification {
         expect:
         new DexMethodCountExtension().format == OutputFormat.LIST
     }
+
+    def "percent failure is off by default"() {
+        expect:
+        new DexMethodCountExtension().failPercentTotalMethodCount = -1
+    }
 }

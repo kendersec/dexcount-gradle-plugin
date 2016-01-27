@@ -24,6 +24,7 @@ class DexMethodCountExtension {
     private boolean orderByMethodCount
     private boolean includeFieldCount = true
     private boolean includeTotalMethodCount = false
+    private int failPercentTotalMethodCount = -1
     private OutputFormat format = OutputFormat.LIST
     private boolean verbose
 
@@ -72,6 +73,18 @@ class DexMethodCountExtension {
 
     public void setIncludeTotalMethodCount(boolean includeTotalMethodCount) {
         this.includeTotalMethodCount = includeTotalMethodCount;
+    }
+
+    /**
+     * When positive it will fail if the percentage of methods exceeds this number from the max of the dex limit
+     * i.e. if you want the build to fail if you go over 95% of the allowed methods, set this argument to 0.95 
+     */
+    public int getFailPercentTotalMethodCount() {
+        return failPercentTotalMethodCount;
+    }
+
+    public void setFailPercentTotalMethodCount(int failPercentTotalMethodCount) {
+        this.failPercentTotalMethodCount = failPercentTotalMethodCount;
     }
 
     /**

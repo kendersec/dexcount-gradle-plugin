@@ -56,9 +56,23 @@ class DexMethodCountTask extends DefaultTask {
     @TaskAction
     void countMethods() {
         generatePackageTree()
+        checkIfFail()
         printSummary()
         printFullTree()
         printTaskDiagnosticData()
+    }
+
+    def checkIfFail() {
+        if (config.failPercentTotalMethodCount < 0) {
+            // never fail
+            return
+        }
+
+        def percent = tree.methodCount / MAX_DEX_REFS
+        if (config.failPercentTotalMethodCount < percent) {
+            // exceeded the percent to the max allowed, fail
+            throw new IllegalStateException("Exceeded maximum number of methods allowed by ${(percent * 100).trunc()}% for ${tree.methodCount} out of max ${MAX_DEX_REFS}")
+        }
     }
 
     /**
